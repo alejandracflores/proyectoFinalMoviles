@@ -1,22 +1,44 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Inspections</ion-title>
-  </ion-toolbar>
-</ion-header>
 <ion-content>
-  <ion-button expand="full" (click)="postInspection()">New Inspection</ion-button>
+
+  <!-- Barra de búsqueda -->
+  <ion-searchbar [(ngModel)]="searchText" debounce="500" (ionInput)="filterInspections()" placeholder="Found Inspections"></ion-searchbar>
+
+  <!-- Botón de Nueva Inspección -->
+  <ion-button expand="full" color="primary" (click)="postInspection()">New Inspection</ion-button>
+
+  <!-- Lista de Inspecciones -->
   <ion-list>
-    <ion-item *ngFor="let inspection of inspections; let i = index">
-      <ion-thumbnail (click)="openModal(inspection.photo)">
-        <img [src]="inspection.photo.dataUrl" />
-      </ion-thumbnail>
-      <ion-label>
-        <p>Date: {{ inspection.photo.date | date: 'medium' }}</p>
-        <p>Location: {{ inspection.location.latitud }}, {{ inspection.location.longitud }}</p>
-        <p>Comment: {{ inspection.comment }}</p>
-      </ion-label>
-      <ion-button color="danger" (click)="deleteInspection(i)">Eliminar</ion-button>
+    <ion-item *ngFor="let inspection of filteredInspections; let i = index" lines="none">
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Inspection #{{ i + 1 }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <div class="inspection-details">
+            <ion-thumbnail slot="start" class="inspection-thumbnail">
+              <img [src]="inspection.photo.dataUrl" (click)="openModal(inspection)" />
+            </ion-thumbnail>
+
+            <ion-label class="inspection-info">
+              <p><strong>Date:</strong> {{ inspection.photo.date | date: 'medium' }}</p>
+              <p><strong>Location:</strong> {{ inspection.location.latitud }}, {{ inspection.location.longitud }}</p>
+              <p><strong>Comment:</strong> {{ inspection.description }}</p>
+            </ion-label>
+          </div>
+        </ion-card-content>
+
+        <ion-button color="danger" (click)="deleteInspection(i)" expand="block">
+          <ion-icon name="trash" slot="start"></ion-icon>
+          Delete
+        </ion-button>
+      </ion-card>
+
     </ion-item>
   </ion-list>
+
+  <!-- Botón de Exportar Inspecciones -->
   <ion-button color="success" expand="full" (click)="exportInspections()">Export Inspections</ion-button>
+
 </ion-content>

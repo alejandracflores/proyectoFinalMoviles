@@ -19,16 +19,20 @@ export class HomePage {
 
   locations: { latitud: number; longitud: number; date: Date; formattedDate?: string }[] = [];
 
-  constructor(private modalController: ModalController, private alertController: AlertController) {}
-
-  // Inspections
+  // Inspections array
   inspections: {
     photo: { dataUrl: string; date: Date },
     location: { latitud: number; longitud: number; date: Date },
     comment: string
   }[] = [];
 
-  // New inspection
+  searchText: string = '';
+
+  filteredInspections: any[] = [];
+
+  constructor(private modalController: ModalController, private alertController: AlertController) {
+    this.filteredInspections = this.inspections;
+  }
   async postInspection() {
     try {
       const image = await Camera.getPhoto({
@@ -55,9 +59,10 @@ export class HomePage {
               longitud: position.coords.longitude,
               date: new Date(),
             },
-            comment: result.data, // Comentario del modal
+            comment: result.data,
           };
           this.inspections.push(inspection);
+          this.filterInspections();
           console.log('Inspección agregada:', this.inspections);
         }
       });
@@ -68,29 +73,36 @@ export class HomePage {
     }
   }
 
-  // Delete inspection
   deleteInspection(index: number) {
     this.inspections.splice(index, 1);
+    this.filterInspections();
     console.log('Inspección eliminada:', this.inspections);
   }
 
-  async openModal (photo: { dataUrl: string, date: Date }) {
-    const modal = await this.modalController.create({
-      component: PhotoModalComponent,
-      componentProps: { photo }
-    });
-    return await modal.present();
+  filterInspections() {
+    if (this.searchText.trim() === '') {
+      this.filteredInspections = this.inspections;
+    } else {
+      this.filteredInspections = this.inspections.filter(inspection =>
+        inspection.comment.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    }
   }
+
+async openModal(inspection: { photo: { dataUrl: string, date: Date } }) {
+  const modal = await this.modalController.create({
+    component: PhotoModalComponent,
+    componentProps: { photo: inspection.photo }
+  });
+  return await modal.present();
+}
 
   async exportInspections() {
     // Convierte las inspecciones a JSON
     const data = JSON.stringify(this.inspections, null, 2);
 
     try {
-      // Codificar el contenido en Base64
       const base64Data = btoa(data);
-
-      // Enlace de descarga
       const link = document.createElement('a');
       link.href = 'data:application/json;base64,' + base64Data;
       link.download = 'inspections.json';
@@ -101,5 +113,4 @@ export class HomePage {
       console.error('Error al exportar datos:', e);
     }
   }
-
 }
