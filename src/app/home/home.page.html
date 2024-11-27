@@ -1,20 +1,17 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content>
+  <ion-button expand="full" (click)="postInspection()">New Inspection</ion-button>
+  <ion-list>
+    <ion-item *ngFor="let inspection of inspections; let i = index">
+      <ion-thumbnail (click)="openModal(inspection.photo)">
+        <img [src]="inspection.photo.dataUrl" />
+      </ion-thumbnail>
+      <ion-label>
+        <p>Fecha: {{ inspection.photo.date | date: 'medium' }}</p>
+        <p>Ubicación: {{ inspection.location.latitud }}, {{ inspection.location.longitud }}</p>
+        <p>Comentario: {{ inspection.description }}</p>
+      </ion-label>
+      <ion-button color="danger" (click)="deleteInspection(i)">Eliminar</ion-button>
+    </ion-item>
+  </ion-list>
+  <ion-button color="success" expand="full" (click)="exportInspections()">Exportar Inspecciones</ion-button>
 </ion-content>
