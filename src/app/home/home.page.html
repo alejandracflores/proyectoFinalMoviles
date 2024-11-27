@@ -15,7 +15,7 @@
         <p>Location: {{ inspection.location.latitud }}, {{ inspection.location.longitud }}</p>
         <p>Comment: {{ inspection.comment }}</p>
       </ion-label>
-      <ion-button color="danger" (click)="deleteInspection(i)">Eliminar</ion-button>
+      <ion-button color="danger" (click)="deleteInspection(i)">Delete</ion-button>
     </ion-item>
   </ion-list>
   <ion-button color="success" expand="full" (click)="exportInspections()">Export Inspections</ion-button>
