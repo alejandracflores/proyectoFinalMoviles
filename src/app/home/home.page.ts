@@ -5,7 +5,6 @@ import { PhotoModalComponent } from '../components/photo-modal/photo-modal.compo
 import { Geolocation } from '@capacitor/geolocation';
 import { AlertController } from '@ionic/angular';
 import { InspectionModalComponent } from '../components/inspection-modal/inspection-modal.component';
-import { Filesystem, Directory } from '@capacitor/filesystem';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +25,7 @@ export class HomePage {
   inspections: {
     photo: { dataUrl: string; date: Date },
     location: { latitud: number; longitud: number; date: Date },
-    description: string
+    comment: string
   }[] = [];
 
   // New inspection
@@ -56,7 +55,7 @@ export class HomePage {
               longitud: position.coords.longitude,
               date: new Date(),
             },
-            description: result.data, // Comentario del modal
+            comment: result.data, // Comentario del modal
           };
           this.inspections.push(inspection);
           console.log('Inspección agregada:', this.inspections);

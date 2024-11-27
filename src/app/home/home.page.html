@@ -1,3 +1,8 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Inspections</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
   <ion-button expand="full" (click)="postInspection()">New Inspection</ion-button>
   <ion-list>
@@ -6,12 +11,12 @@
         <img [src]="inspection.photo.dataUrl" />
       </ion-thumbnail>
       <ion-label>
-        <p>Fecha: {{ inspection.photo.date | date: 'medium' }}</p>
-        <p>Ubicación: {{ inspection.location.latitud }}, {{ inspection.location.longitud }}</p>
-        <p>Comentario: {{ inspection.description }}</p>
+        <p>Date: {{ inspection.photo.date | date: 'medium' }}</p>
+        <p>Location: {{ inspection.location.latitud }}, {{ inspection.location.longitud }}</p>
+        <p>Commet: {{ inspection.comment }}</p>
       </ion-label>
       <ion-button color="danger" (click)="deleteInspection(i)">Eliminar</ion-button>
     </ion-item>
   </ion-list>
-  <ion-button color="success" expand="full" (click)="exportInspections()">Exportar Inspecciones</ion-button>
+  <ion-button color="success" expand="full" (click)="exportInspections()">Export Inspections</ion-button>
 </ion-content>
