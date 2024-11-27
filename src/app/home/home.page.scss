@@ -1,0 +1,24 @@
+/* Estilo personalizado para las imágenes */
+.inspection-thumbnail {
+  width: 100px; /* Ajusta el tamaño de la imagen */
+  height: 100px;
+  border-radius: 8px; /* Añadir bordes redondeados */
+  border: 2px solid #ddd; /* Añadir un borde suave */
+  object-fit: cover; /* Asegura que la imagen se recorte correctamente */
+}
+
+.inspection-details {
+  display: flex;
+  align-items: center;
+}
+
+.inspection-info {
+  margin-left: 16px;
+}
+
+ion-card {
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añadir sombra para destacar */
+}
+
