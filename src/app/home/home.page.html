@@ -13,7 +13,7 @@
       <ion-label>
         <p>Date: {{ inspection.photo.date | date: 'medium' }}</p>
         <p>Location: {{ inspection.location.latitud }}, {{ inspection.location.longitud }}</p>
-        <p>Commet: {{ inspection.comment }}</p>
+        <p>Comment: {{ inspection.comment }}</p>
       </ion-label>
       <ion-button color="danger" (click)="deleteInspection(i)">Eliminar</ion-button>
     </ion-item>
