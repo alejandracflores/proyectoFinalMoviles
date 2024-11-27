@@ -1,3 +1,8 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Inspection</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
   <!-- Barra de búsqueda -->
   <ion-searchbar [(ngModel)]="searchText" debounce="500" (ionInput)="filterInspections()" placeholder="Found Inspections"></ion-searchbar>
@@ -7,8 +12,8 @@
 
   <!-- Lista de Inspecciones -->
   <ion-list>
-    <ion-item *ngFor="let inspection of inspections; let i = index">
-      <ion-thumbnail (click)="openModal(inspection.photo)">
+    <ion-item *ngFor="let inspection of filteredInspections; let i = index">
+      <ion-thumbnail (click)="openModal({ photo: inspection.photo })">
         <img [src]="inspection.photo.dataUrl" />
       </ion-thumbnail>
       <ion-label>

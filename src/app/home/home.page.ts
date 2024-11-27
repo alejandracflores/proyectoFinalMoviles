@@ -89,13 +89,13 @@ export class HomePage {
     }
   }
 
-async openModal(inspection: { photo: { dataUrl: string, date: Date } }) {
-  const modal = await this.modalController.create({
-    component: PhotoModalComponent,
-    componentProps: { photo: inspection.photo }
-  });
-  return await modal.present();
-}
+  async openModal(inspection: { photo: { dataUrl: string, date: Date } }) {
+    const modal = await this.modalController.create({
+      component: PhotoModalComponent,
+      componentProps: { photo: inspection.photo }
+    });
+    return await modal.present();
+  }
 
   async exportInspections() {
     // Convierte las inspecciones a JSON
